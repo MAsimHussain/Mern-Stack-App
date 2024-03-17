@@ -28,19 +28,16 @@ const productctRouter = require("./Router/Product");
 const mongoose = require("mongoose");
 main().catch((err) => console.log(err));
 async function main() {
-  // await mongoose.connect("mongodb://127.0.0.1:27017/localDB"); local database url
-  await mongoose.connect(process.env.MONGODB_URL);
+  // await mongoose.connect("mongodb://127.0.0.1:27017/localDB"); local database url 
+  await mongoose.connect(process.env.MONGODB_URL)
   console.log("Database connected successfully!");
 }
 
 //core middleware set header
 server.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE,OPTIONS"
-  );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.setHeader("Access-Control-Allow-Credentials", true);
   next();
 });
@@ -56,10 +53,6 @@ server.use(express.static(path.join(__dirname, process.env.PUBLIC_DIR)));
 //   res.sendFile(path.resolve(__dirname, 'dist','index.html'))
 // })
 // error handling middleware err
-server.options("*", (req, res) => {
-  res.sendStatus(200);
-});
-
 server.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(500).send("Something went wrong!");
@@ -68,3 +61,5 @@ server.use(function (err, req, res, next) {
 server.listen(process.env.SERVER_PORT || 8080, () => {
   console.log("Server Started...");
 });
+
+
