@@ -47,7 +47,11 @@ server.use(express.json());
 
 server.use("/", productctRouter.router);
 // server.use(express.static(path.join(__dirname, process.env.PUBLIC_DIR)));
-
+server.get('*',(req,res,next)=>{
+  res.status(200).json({
+    message:'bad request'
+  })
+})
 // error handling middleware err
 server.use(function (err, req, res, next) {
   console.error(err.stack);

@@ -1,22 +1,10 @@
-
 {
-    "routes": [
-      { "handle": "filesystem" },
-      {
-        "src": "/api",
-        "dest": "/api/products/:id",
-        "methods": ["GET"]
-      },
-      {
-        "src": "/api",
-        "dest": "/api/products",
-        "methods": ["POST", "PUT", "PATCH", "DELETE"]
-      },
-      {
-        "src": "/(.*)",
-        "dest": "/$1",
-        "status": 200
-      }
-    ]
-  }
-  
+  "version": 2,
+  "name": "music-album",
+  "builds": [
+     { "src": "Middleware.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+     { "src": "/(.*)", "dest": "/Middleware.js" }
+  ]
+}
