@@ -46,7 +46,7 @@ server.use(cors());
 server.use(express.json());
 
 server.use("/", productctRouter.router);
-server.use(express.static(path.join(__dirname, 'public')));
+server.use(express.static(path.join(__dirname, process.env.PUBLIC_DIR)));
 
 // if server not find any frontend routes then try it this middleware
 // server.use('*', function (req, res) {
