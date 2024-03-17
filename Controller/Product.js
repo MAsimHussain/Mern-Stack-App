@@ -3,7 +3,6 @@ const fs = require("fs");
 // const quotes = data.quotes;
 
 const model = require("../model/model");
-const mongoose = require("mongoose");
 const Product = model.Product;
 
 exports.createQuote = async (req, res) => {

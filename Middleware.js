@@ -39,14 +39,12 @@ server.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.setHeader("Access-Control-Allow-Credentials", true);
-  next();
-});
-
+  next();});
 server.use(cors());
 server.use(express.json());
 
 server.use("/", productctRouter.router);
-// server.use(express.static(path.join(__dirname, process.env.PUBLIC_DIR)));
+server.use(express.static(path.join(__dirname, process.env.PUBLIC_DIR)));
 server.get('*',(req,res,next)=>{
   res.status(200).json({
     message:'bad request'
