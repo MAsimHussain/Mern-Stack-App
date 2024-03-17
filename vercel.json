@@ -1,0 +1,22 @@
+
+{
+    "routes": [
+      { "handle": "filesystem" },
+      {
+        "src": "/api",
+        "dest": "/api/products/:id",
+        "methods": ["GET"]
+      },
+      {
+        "src": "/api",
+        "dest": "/api/products",
+        "methods": ["POST", "PUT", "PATCH", "DELETE"]
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/$1",
+        "status": 200
+      }
+    ]
+  }
+  

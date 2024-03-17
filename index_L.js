@@ -46,7 +46,7 @@ server.use(cors());
 server.use(express.json());
 
 server.use("/", productctRouter.router);
-server.use(express.static(path.join(__dirname, process.env.PUBLIC_DIR)));
+server.use(express.static(path.join(__dirname, 'public')));
 
 // if server not find any frontend routes then try it this middleware
 // server.use('*', function (req, res) {
@@ -61,5 +61,3 @@ server.use(function (err, req, res, next) {
 server.listen(process.env.SERVER_PORT || 8080, () => {
   console.log("Server Started...");
 });
-
-
