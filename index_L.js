@@ -34,19 +34,23 @@ async function main() {
 }
 
 //core middleware set header
+server.use(cors());
 server.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  res.setHeader("Access-Control-Allow-Credentials", true);
+  res.setHeader("Access-Control-Allow-Origin", "*"); // Specify your frontend domain instead of *
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"); // Include OPTIONS for preflight requests
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Include other headers if needed
+  res.setHeader("Access-Control-Allow-Credentials", true); // Set to true if handling credentials
   next();
 });
 
-server.use(cors());
 server.use(express.json());
-
 server.use("/", productctRouter.router);
 server.use(express.static(path.join(__dirname, process.env.PUBLIC_DIR)));
+
+// Handle OPTIONS requests for preflight
+server.options("*", (req, res) => {
+  res.sendStatus(200);
+});
 
 // if server not find any frontend routes then try it this middleware
 // server.use('*', function (req, res) {
