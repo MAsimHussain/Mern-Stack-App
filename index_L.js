@@ -28,35 +28,38 @@ const productctRouter = require("./Router/Product");
 const mongoose = require("mongoose");
 main().catch((err) => console.log(err));
 async function main() {
-  // await mongoose.connect("mongodb://127.0.0.1:27017/localDB"); local database url 
-  await mongoose.connect(process.env.MONGODB_URL)
+  // await mongoose.connect("mongodb://127.0.0.1:27017/localDB"); local database url
+  await mongoose.connect(process.env.MONGODB_URL);
   console.log("Database connected successfully!");
 }
 
 //core middleware set header
-server.use(cors());
 server.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "*"); // Specify your frontend domain instead of *
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"); // Include OPTIONS for preflight requests
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Include other headers if needed
-  res.setHeader("Access-Control-Allow-Credentials", true); // Set to true if handling credentials
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE,OPTIONS"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", true);
   next();
 });
 
+server.use(cors());
 server.use(express.json());
+
 server.use("/", productctRouter.router);
 server.use(express.static(path.join(__dirname, process.env.PUBLIC_DIR)));
-
-// Handle OPTIONS requests for preflight
-server.options("*", (req, res) => {
-  res.sendStatus(200);
-});
 
 // if server not find any frontend routes then try it this middleware
 // server.use('*', function (req, res) {
 //   res.sendFile(path.resolve(__dirname, 'dist','index.html'))
 // })
 // error handling middleware err
+server.options("*", (req, res) => {
+  res.sendStatus(200);
+});
+
 server.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(500).send("Something went wrong!");
