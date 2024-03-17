@@ -46,12 +46,8 @@ server.use(cors());
 server.use(express.json());
 
 server.use("/", productctRouter.router);
-server.use(express.static(path.join(__dirname, process.env.PUBLIC_DIR)));
+// server.use(express.static(path.join(__dirname, process.env.PUBLIC_DIR)));
 
-// if server not find any frontend routes then try it this middleware
-// server.use('*', function (req, res) {
-//   res.sendFile(path.resolve(__dirname, 'dist','index.html'))
-// })
 // error handling middleware err
 server.use(function (err, req, res, next) {
   console.error(err.stack);
@@ -61,3 +57,21 @@ server.use(function (err, req, res, next) {
 server.listen(process.env.SERVER_PORT || 8080, () => {
   console.log("Server Started...");
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// if server not find any frontend routes then try it this middleware
+// server.use('*', function (req, res) {
+//   res.sendFile(path.resolve(__dirname, 'dist','index.html'))
+// })
